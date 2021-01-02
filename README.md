@@ -495,8 +495,8 @@ supports all the standard `li` parameters plus the reveal.js addons above
 supports all the standard `a` parameters plus the reveal.js addons above. In addition,
 the `Link` component makes it possible to link to slides easily.
 Pass in the slide number (1-indexed), the slide id (a string), or the slide itself,
-retrieved using a ref, and this will link to the slide properly. The last method is recommended as the
-preferred approach, as it will survive API changes in reveal.js.
+retrieved using a ref, and this will link to the slide properly. Preferred is using the
+slide ID or the slide itself, as this will survive API changes in reveal.js
 
 
 #### Main

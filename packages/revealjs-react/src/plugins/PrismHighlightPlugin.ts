@@ -1,4 +1,5 @@
-import Prism from 'prismjs';
+// @ts-ignore
+import Prism from 'prismjs/components/prism-core';
 // @ts-ignore
 import config from 'prismjs/components.js';
 // @ts-ignore
@@ -10,7 +11,14 @@ import {
   PrismThemes,
 } from './PrismHighlightPlugin/types';
 import './PrismHighlightPlugin/PrismHighlight.css';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-markup';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-typescript';
 
+// @ts-ignore
 window.Prism = Prism;
 
 export interface PrismOptions<

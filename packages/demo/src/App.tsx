@@ -9,9 +9,6 @@ import {
 import Prism from 'prismjs';
 import { Example } from '@gregcello/revealjs-react/example.macro';
 import 'reveal.js/dist/theme/moon.css';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-tsx';
-import 'prismjs/components/prism-typescript';
 import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';

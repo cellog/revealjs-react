@@ -39,6 +39,34 @@ export interface RevealDeckState {
   paused: boolean;
 }
 
+export interface RevealEvents {
+  ready: { currentSlide: HTMLElement; indexh: number; indexv: number };
+  slidechanged: { previousSlide: HTMLElement; currentSlide: HTMLElement; indexh: number; indexv: number };
+  slidetransitionend: { previousSlide: HTMLElement; currentSlide: HTMLElement; indexh: number; indexv: number };
+  resize: { scale: number; oldScale: number; size: number };
+  overviewshown: never;
+  overviewhidden: never;
+  fragmentshown: { fragment: HTMLElement };
+  fragmenthidden: { fragment: HTMLElement };
+  autoslideresumed: never;
+  autoslidepaused: never;
+}
+
+export type RevealEventsPrune<T extends keyof RevealEvents> = [RevealEvents[T]] extends [never] ? T : never;
+export type RevealEventsOther<T extends keyof RevealEvents> = [RevealEvents[T]] extends [never] ? never : T;
+
+export type RevealEventsNoData = {
+  [P in keyof RevealEvents]: RevealEventsPrune<P>
+}[keyof RevealEvents];
+export type RevealEventsWithData = {
+  [P in keyof RevealEvents]: RevealEventsOther<P>;
+}[keyof RevealEvents];
+
+export interface RevealEventHandler {
+  (event: RevealEventsNoData, handler: (event: {}) => void): void;
+  <T extends RevealEventsWithData>(event: T, handler: (event: RevealEvents[T]) => void): void;
+}
+
 export default class Reveal<Plugins extends MightBeRevealPlugin[]> {
   constructor(rootEl: HTMLDivElement, config: RevealConfig<Plugins>);
   constructor(config: RevealConfig<Plugins>);
@@ -90,6 +118,7 @@ export default class Reveal<Plugins extends MightBeRevealPlugin[]> {
   hasPlugin: (plugin: string) => boolean;
   getPlugin: (plugin: string) => RevealPlugin | null;
   getPlugins: () => RevealPluginList;
+  on: RevealEventHandler;
 }
 
 export interface RevealPluginDefinition<PluginExtraConfig = undefined> {

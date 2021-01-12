@@ -1,9 +1,4 @@
-// @ts-ignore
-import Prism from 'prismjs/components/prism-core';
-// @ts-ignore
-import config from 'prismjs/components.js';
-// @ts-ignore
-import getLoader from 'prismjs/dependencies';
+import Prism from 'prismjs';
 import { RevealPluginDefinition } from '../../types/reveal.js';
 import {
   PrismLanguages,
@@ -11,14 +6,10 @@ import {
   PrismThemes,
 } from './PrismHighlightPlugin/types';
 import './PrismHighlightPlugin/PrismHighlight.css';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-typescript';
 
-// @ts-ignore
 window.Prism = Prism;
 
 export interface PrismOptions<
@@ -52,12 +43,19 @@ export function addCustomPrismLanguage(
   languageDef(Prism);
 }
 
+
+interface PrismPlugin extends RevealPluginDefinition<PrismOptions> {
+  highlightedSlides: WeakMap<HTMLElement, true>
+}
+
 /*!
  * reveal.js plugin that adds syntax highlight support using Prism.js.
  */
 
-const PrismHighlightPlugin: RevealPluginDefinition<PrismOptions> = {
+const PrismHighlightPlugin: PrismPlugin = {
   id: 'prism-highlight',
+
+  highlightedSlides: new WeakMap(),
 
   /**
    * Highlights code blocks withing the given deck.
@@ -65,8 +63,21 @@ const PrismHighlightPlugin: RevealPluginDefinition<PrismOptions> = {
    * Note that this can be called multiple times if
    * there are multiple presentations on one page.
    */
-  init() {
-    setTimeout(() => Prism.highlightAll(), 100);
+  init(reveal) {
+    reveal.on('ready', () => {
+      const currentSlide = reveal.getCurrentSlide();
+      PrismHighlightPlugin.highlightedSlides.set(currentSlide, true);
+      Prism.highlightAllUnder(currentSlide);
+    })
+    reveal.on('slidechanged', ({ currentSlide }) => {
+      // highlight the slides just-in-time
+      if (PrismHighlightPlugin.highlightedSlides.has(currentSlide)) {
+        // don't highlight slides multiple times
+        return;
+      }
+      PrismHighlightPlugin.highlightedSlides.set(currentSlide, true);
+      Prism.highlightAllUnder(currentSlide);
+    })
   },
 };
 

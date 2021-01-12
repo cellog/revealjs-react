@@ -403,7 +403,10 @@ export default function RevealJS<
   pluginProps,
 }: RevealJSProps<Plugins>) {
   const [revealContext, setContextValue] = useState<RevealContextType<Plugins>>(
-    defaultContextValue,
+    {
+      ...defaultContextValue,
+      prism: !!plugins?.find((plugin) => plugin().id === 'prism-highlight'),
+    }
   );
   const revealRef = useRef<HTMLDivElement>(null);
   const revealDeck: React.MutableRefObject<Reveal<Plugins> | null> = useRef(

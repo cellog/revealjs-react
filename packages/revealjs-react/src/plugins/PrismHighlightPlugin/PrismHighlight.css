@@ -1,7 +1,7 @@
 code[class*='language-'],
 pre[class*='language-'] {
   /* use the reveal value, not the prism value */
-  font-size: 0.75em !important;
+  font-size: 0.6em !important;
 }
 
 .reveal pre code {

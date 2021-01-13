@@ -43,9 +43,28 @@ export function addCustomPrismLanguage(
   languageDef(Prism);
 }
 
-
 interface PrismPlugin extends RevealPluginDefinition<PrismOptions> {
-  highlightedSlides: WeakMap<HTMLElement, true>
+  highlightedSlides: WeakMap<HTMLElement, true>;
+}
+
+/**
+ * Given the current slide, get all of the <Code> sections, and
+ * for each, scroll to the top-most highlighted line smoothly
+ */
+function scrollToTopmostHighlightedLine(currentSlide: Element) {
+  const codeSections = currentSlide.querySelectorAll(
+    'pre[class*="language-"], pre[class*="lang-"]',
+  );
+  for (const code of codeSections) {
+    const highlight = code.querySelector('.line-highlight');
+    if (!highlight || !highlight.parentElement) {
+      return;
+    }
+    highlight.parentElement.scrollTo({
+      top: highlight.getBoundingClientRect().top,
+      behavior: 'smooth',
+    });
+  }
 }
 
 /*!
@@ -68,7 +87,9 @@ const PrismHighlightPlugin: PrismPlugin = {
       const currentSlide = reveal.getCurrentSlide();
       PrismHighlightPlugin.highlightedSlides.set(currentSlide, true);
       Prism.highlightAllUnder(currentSlide);
-    })
+      // scroll to top-most highlighted line
+      scrollToTopmostHighlightedLine(currentSlide);
+    });
     reveal.on('slidechanged', ({ currentSlide }) => {
       // highlight the slides just-in-time
       if (PrismHighlightPlugin.highlightedSlides.has(currentSlide)) {
@@ -77,7 +98,12 @@ const PrismHighlightPlugin: PrismPlugin = {
       }
       PrismHighlightPlugin.highlightedSlides.set(currentSlide, true);
       Prism.highlightAllUnder(currentSlide);
-    })
+    });
+    reveal.on('slidetransitionend', () => {
+      const currentSlide = reveal.getCurrentSlide();
+      // scroll to top-most highlighted line
+      scrollToTopmostHighlightedLine(currentSlide);
+    });
   },
 };
 

@@ -19,9 +19,34 @@ const plugins = [PrismHighlightPlugin, NotesPlugin];
 const Main = () => (
   <Slide>
     <Example>
-      <Code language="typescript" lineNumbers="3-5">
+      <Code language="typescript" lineNumbers="30-31">
         {{
           code: `
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
 const f: number = 2
 const f: number = 2
 const f: number = 2

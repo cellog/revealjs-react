@@ -14,6 +14,14 @@ pre[class*='language-'] {
   padding-left: 3.8em !important;
 }
 
+.reveal pre[data-auto-animate-target] {
+  overflow: auto !important;
+}
+
+.reveal pre code {
+  overflow: visible !important;
+}
+
 .reveal .line-numbers-rows {
   top: 5px !important;
   left: 0 !important;

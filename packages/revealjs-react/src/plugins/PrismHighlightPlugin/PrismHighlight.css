@@ -1,9 +1,20 @@
 code[class*='language-'],
 pre[class*='language-'] {
   /* use the reveal value, not the prism value */
-  font-size: 0.6em !important;
+  font-size: 0.55em !important;
 }
 
-.reveal pre code {
-  overflow: initial !important;
+.reveal pre[class*='language-'].line-numbers,
+.reveal pre[class*='lang-'].line-numbers {
+  padding-left: 1em !important;
+}
+
+.reveal pre[class*='language-'].line-numbers > code,
+.reveal pre[class*='lang-'].line-numbers > code {
+  padding-left: 3.8em !important;
+}
+
+.reveal .line-numbers-rows {
+  top: 5px !important;
+  left: 0 !important;
 }

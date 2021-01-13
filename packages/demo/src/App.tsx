@@ -16,6 +16,46 @@ import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 
 const plugins = [PrismHighlightPlugin, NotesPlugin];
 
+const Main = () => (
+  <Slide>
+    <Example>
+      <Code language="typescript" lineNumbers="3-5">
+        {{
+          code: `
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+const f: number = 2
+`,
+        }}
+      </Code>
+    </Example>
+  </Slide>
+);
 
 function App() {
   return (
@@ -30,6 +70,12 @@ function App() {
             </Code>
           </Example>
         </Slide>
+        <Main />
+        <Main />
+        <Main />
+        <Main />
+        <Main />
+        <Main />
       </RevealJS>
     </div>
   );

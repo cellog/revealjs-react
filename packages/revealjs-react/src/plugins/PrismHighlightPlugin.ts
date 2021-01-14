@@ -56,12 +56,15 @@ function scrollToTopmostHighlightedLine(currentSlide: Element) {
     'pre[class*="language-"], pre[class*="lang-"]',
   );
   for (const code of codeSections) {
-    const highlight = code.querySelector('.line-highlight');
+    const highlight = code.querySelector<HTMLElement>('.line-highlight');
     if (!highlight || !highlight.parentElement) {
       return;
     }
     highlight.parentElement.scrollTo({
-      top: highlight.getBoundingClientRect().top,
+      top:
+        highlight.offsetTop -
+        (highlight?.parentElement?.parentElement?.scrollTop || 0) -
+        30,
       behavior: 'smooth',
     });
   }

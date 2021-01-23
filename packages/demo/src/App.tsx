@@ -5,6 +5,8 @@ import {
   PrismHighlightPlugin,
   NotesPlugin,
   Code,
+  Fragment,
+  Note,
   enablePrismLineNumbers,
 } from '@gregcello/revealjs-react';
 import { Example } from '@gregcello/revealjs-react/example.macro';
@@ -19,67 +21,12 @@ const plugins = [PrismHighlightPlugin, NotesPlugin];
 
 const Main = () => (
   <Slide>
-    <Example>
-      <Code language="typescript" lineNumbers="30-31">
-        {{
-          code: `
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-const f: number = 2
-`,
-        }}
-      </Code>
-    </Example>
+    <Code language="tsx">{{ code: `<span class="hi"></span>` }}</Code>
+    <Note>test 1</Note>
+    <Fragment transition="highlight-blue">
+      <Code language="tsx">{{ code: `<span class="hi"></span>` }}</Code>
+      <Note>test 2</Note>
+    </Fragment>
   </Slide>
 );
 

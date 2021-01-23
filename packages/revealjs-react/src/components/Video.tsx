@@ -11,6 +11,7 @@ export interface VideoProps {
   preload?: '' | 'metadata' | 'auto' | 'none';
   width?: number;
   src: string[] | string;
+  autoAnimateId?: string;
 }
 
 type VideoTypes =
@@ -41,7 +42,7 @@ const formatMap: {
 };
 
 function Video({
-  id,
+  autoAnimateId,
   autoplay,
   controls,
   fragmentIndex,
@@ -58,8 +59,7 @@ function Video({
     return (
       <video
         {...getClassNameProps(props)}
-        data-id={id}
-        id={id}
+        data-id={autoAnimateId}
         data-autoplay={autoplay}
         controls={controls}
         muted={muted}

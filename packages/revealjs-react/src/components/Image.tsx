@@ -6,10 +6,11 @@ export interface ImageProps {
   height?: number;
   width?: number;
   src: string;
+  autoAnimateId?: string;
 }
 
 function Image({
-  id,
+  autoAnimateId,
   alt,
   fragmentIndex,
   height,
@@ -20,8 +21,7 @@ function Image({
   return (
     <img
       {...getClassNameProps(props)}
-      data-id={id}
-      id={id}
+      data-id={autoAnimateId}
       src={src}
       alt={alt}
       width={width}

@@ -15,6 +15,25 @@ export interface RevealSlideSize {
   presentationHeight: number;
 }
 
+export type FragmentTransitions =
+  | 'fade-in'
+  | 'fade-out'
+  | 'fade-up'
+  | 'fade-down'
+  | 'fade-left'
+  | 'fade-right'
+  | 'fade-in-then-out'
+  | 'fade-in-then-semi-out'
+  | 'grow'
+  | 'shrink'
+  | 'strike'
+  | 'highlight-red'
+  | 'highlight-green'
+  | 'highlight-blue'
+  | 'highlight-current-red'
+  | 'highlight-current-green'
+  | 'highlight-current-blue';
+
 export type TransitionAtoms =
   | 'none'
   | 'fade'
@@ -41,8 +60,18 @@ export interface RevealDeckState {
 
 export interface RevealEvents {
   ready: { currentSlide: HTMLElement; indexh: number; indexv: number };
-  slidechanged: { previousSlide: HTMLElement; currentSlide: HTMLElement; indexh: number; indexv: number };
-  slidetransitionend: { previousSlide: HTMLElement; currentSlide: HTMLElement; indexh: number; indexv: number };
+  slidechanged: {
+    previousSlide: HTMLElement;
+    currentSlide: HTMLElement;
+    indexh: number;
+    indexv: number;
+  };
+  slidetransitionend: {
+    previousSlide: HTMLElement;
+    currentSlide: HTMLElement;
+    indexh: number;
+    indexv: number;
+  };
   resize: { scale: number; oldScale: number; size: number };
   overviewshown: never;
   overviewhidden: never;
@@ -52,11 +81,19 @@ export interface RevealEvents {
   autoslidepaused: never;
 }
 
-export type RevealEventsPrune<T extends keyof RevealEvents> = [RevealEvents[T]] extends [never] ? T : never;
-export type RevealEventsOther<T extends keyof RevealEvents> = [RevealEvents[T]] extends [never] ? never : T;
+export type RevealEventsPrune<T extends keyof RevealEvents> = [
+  RevealEvents[T],
+] extends [never]
+  ? T
+  : never;
+export type RevealEventsOther<T extends keyof RevealEvents> = [
+  RevealEvents[T],
+] extends [never]
+  ? never
+  : T;
 
 export type RevealEventsNoData = {
-  [P in keyof RevealEvents]: RevealEventsPrune<P>
+  [P in keyof RevealEvents]: RevealEventsPrune<P>;
 }[keyof RevealEvents];
 export type RevealEventsWithData = {
   [P in keyof RevealEvents]: RevealEventsOther<P>;
@@ -64,7 +101,10 @@ export type RevealEventsWithData = {
 
 export interface RevealEventHandler {
   (event: RevealEventsNoData, handler: (event: {}) => void): void;
-  <T extends RevealEventsWithData>(event: T, handler: (event: RevealEvents[T]) => void): void;
+  <T extends RevealEventsWithData>(
+    event: T,
+    handler: (event: RevealEvents[T]) => void,
+  ): void;
 }
 
 export default class Reveal<Plugins extends MightBeRevealPlugin[]> {

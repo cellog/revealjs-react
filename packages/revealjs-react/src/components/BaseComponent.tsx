@@ -1,12 +1,12 @@
 import { createElement, DetailedHTMLFactory, ReactHTML } from 'react';
 
 export interface BaseProps {
-  id?: string;
   className?: string;
   fragment?: boolean;
   fragmentStyle?: string;
   fragmentIndex?: number;
   fitText?: boolean;
+  autoAnimateId?: string;
 }
 
 export type MakeProps<Interface, T extends keyof ReactHTML> = Interface &
@@ -69,15 +69,14 @@ export function generateBaseComponent<T extends SimpleComponent>(component: T) {
 
 export default function BaseComponent<T extends keyof ReactHTML>({
   component,
-  id,
+  autoAnimateId,
   fragmentIndex,
   children,
   ...props
 }: Props<T>) {
   return createElement(component, {
     ...getClassNameProps(props),
-    'data-id': id,
-    id,
+    'data-id': autoAnimateId,
     'data-fragment-index': fragmentIndex,
     children,
   });

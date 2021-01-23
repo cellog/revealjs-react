@@ -2,18 +2,18 @@ import React from 'react';
 import { getClassNameProps, MakeProps } from './BaseComponent';
 
 export type AudioTypes =
- | '3gp'
- | 'aac'
- | 'flac'
- | 'mpg'
- | 'mpeg'
- | 'mp3'
- | 'mp4'
- | 'm4a'
- | 'oga'
- | 'ogg'
- | 'wav'
- | 'webm';
+  | '3gp'
+  | 'aac'
+  | 'flac'
+  | 'mpg'
+  | 'mpeg'
+  | 'mp3'
+  | 'mp4'
+  | 'm4a'
+  | 'oga'
+  | 'ogg'
+  | 'wav'
+  | 'webm';
 
 const formatMap: {
   [P in AudioTypes]: string;
@@ -43,7 +43,6 @@ export interface AudioProps {
 }
 
 function Audio({
-  id,
   autoplay,
   className,
   controls,
@@ -61,8 +60,6 @@ function Audio({
     return (
       <audio
         {...getClassNameProps(props)}
-        data-id={id}
-        id={id}
         data-autoplay={autoplay}
         controls={controls}
         muted={muted}
@@ -74,7 +71,9 @@ function Audio({
             src={lazy ? false : element}
             data-src={lazy ? element : false}
             data-preload={preload}
-            type={formatMap[/\.[^.]+$/.exec(element)?.[0] as AudioTypes] || 'mp3'}
+            type={
+              formatMap[/\.[^.]+$/.exec(element)?.[0] as AudioTypes] || 'mp3'
+            }
           />
         ))}
       </audio>

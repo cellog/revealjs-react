@@ -43,6 +43,8 @@ import Example from './components/Example';
 import type { ExampleProps } from './components/Example';
 import Audio from './components/Audio';
 import type { AudioProps } from './components/Audio';
+import Fragment from './components/Fragment';
+import type { FragmentProps } from './components/Fragment';
 import Code from './components/Code';
 import type { CodeProps } from './components/Code';
 import IFrame from './components/Iframe';
@@ -104,6 +106,7 @@ import type {
   RevealSlideSize,
   ExtractPluginExtraConfig,
   RevealPlugins,
+  FragmentTransitions,
 } from '../types/reveal.js';
 import type Reveal from '../types/reveal.js';
 
@@ -119,6 +122,7 @@ export {
   FigCaption,
   Figure,
   Footer,
+  Fragment,
   H1,
   H2,
   H3,
@@ -164,6 +168,7 @@ export type {
   RevealRoutes,
   RevealSlideCoordinates,
   RevealSlideSize,
+  FragmentTransitions,
   HighlightOptions,
   PrismOptions,
   ExtractPluginExtraConfig,
@@ -175,6 +180,7 @@ export type {
   FigCaptionProps,
   FigureProps,
   FooterProps,
+  FragmentProps,
   HProps,
   HeaderProps,
   IFrameProps,

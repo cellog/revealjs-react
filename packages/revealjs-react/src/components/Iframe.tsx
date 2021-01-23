@@ -10,7 +10,7 @@ export interface IFrameProps {
 }
 
 function IFrame({
-  id,
+  autoAnimateId,
   fragmentIndex,
   height,
   lazy,
@@ -22,8 +22,7 @@ function IFrame({
   return (
     <iframe
       {...getClassNameProps(props)}
-      data-id={id}
-      id={id}
+      data-id={autoAnimateId}
       src={lazy ? undefined : src}
       data-src={lazy ? src : undefined}
       data-preload={preload}

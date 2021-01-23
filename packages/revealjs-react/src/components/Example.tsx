@@ -4,13 +4,13 @@ import './Example.css';
 
 export interface ExampleProps {
   source?: string;
-  id?: string;
+  autoAnimateId?: string;
   children: React.ReactNode;
 }
 
 export default function Example({
   source: code = '',
-  id,
+  autoAnimateId,
   children,
 }: ExampleProps) {
   const [selected, setSelected] = useState<'example' | 'source'>('example');
@@ -30,7 +30,7 @@ export default function Example({
         </a>
       </div>
       <div style={{ display: selected === 'source' ? 'block' : 'none' }}>
-        <Code lineNumbers language="tsx" id={id}>
+        <Code lineNumbers language="tsx" autoAnimateId={autoAnimateId}>
           {{ code }}
         </Code>
         <a href="#example" onClick={(e) => show(e, 'example')}>

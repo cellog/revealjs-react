@@ -13,9 +13,11 @@ A Typescript/React wrapper for the RevealJS Presentation Library with types for 
       - [Audio](#audio)
       - [BlockQuote](#blockquote)
       - [Div](#div)
+      - [Div](#div-1)
       - [FigCaption](#figcaption)
       - [Figure](#figure)
       - [Footer](#footer)
+      - [Fragment](#fragment)
       - [H1](#h1)
       - [H2](#h2)
       - [H3](#h3)
@@ -70,7 +72,9 @@ render(
 All components support the following properties:
 
 ```ts
-  id?: string; // id for the html component
+  // pass in an id that you will use for the same element in other slides to enable smooth transitions
+  // `autoAnimate` must be passed to the slides to enable this (see the reveal.js documentation for `data-id`)
+  autoAnimateId?: string;
   className?: string; // any additional class name(s), will be concatenated with the fragment classnames
   fragment?: boolean; // if true, this is treated as a fragment (see the reveal.js documentation)
   fragmentStyle?: string; // any extra fragment-specific style
@@ -413,7 +417,7 @@ The `Code` component sets helpers for animation across slides. Use the `Highligh
   lineNumbers?: string | true; // display line numbers. This is turned on if you specify autoAnimateId
   noTrim?: boolean; // if true, disables trimming whitespace on the edges of the code
   // pass in an id that you will use for the same code block in other slides to enable smooth transitions
-  // `autoAnimate` must be passed to the slides to enable this (see the reveal.js documentation)
+  // `autoAnimate` must be passed to the slides to enable this (see the reveal.js documentation for `data-id`)
   autoAnimateId?: string;
 ```
 
@@ -439,6 +443,50 @@ supports all the standard `blockquote` parameters plus the reveal.js addons abov
 
 supports all the standard `div` parameters plus the reveal.js addons above
 
+#### Div
+
+Like `Code` but `source` is a prop. Children are rendered with a toggle to switch between viewing source and
+viewing the example.
+
+For added power, use the babel macro imported from `@gregcello/revealjs-react/example.macro`
+and source code will be auto-extracted from the source file. The macro is still experimental.
+
+```tsx
+import { Example } from "@gregcello/revealjs-react/example.macro";
+
+function test() {
+  return (
+    <Example>
+      <span className="hi">thing</span>
+    </Example>
+  );
+}
+```
+
+The above will toggle displaying `thing` and highlighted `<span className="hi">thing</span>`
+
+The macro only supports tsx elements. Soon, support will be added for interpolated elements like this:
+
+```tsx
+import { Example } from "@gregcello/revealjs-react/example.macro";
+
+function test() {
+  return (
+    <Example>
+      {() => {
+        const [something, setSomething] = useState('hi')
+        return (
+          <div>
+            <span className="hi">{something}</span>
+            <button onClick={(() => setSomething('other'))}>change hi to something</button>
+          </div>
+        );
+      }}
+    </Example>
+  );
+}
+```
+
 #### FigCaption
 
 supports all the standard `figcaption` parameters plus the reveal.js addons above
@@ -450,6 +498,11 @@ supports all the standard `figure` parameters plus the reveal.js addons above
 #### Footer
 
 supports all the standard `footer` parameters plus the reveal.js addons above
+
+#### Fragment
+
+this creates a fragment. set fragment index with the `index` prop, and control animations with the `animation` prop.
+Use a `Note` inside the fragment to set fragment-specific notes.
 
 #### H1
 
@@ -528,9 +581,12 @@ supports all the standard `ul` parameters plus the reveal.js addons above
 
 #### Video
 
-The `Audio` component accepts all the parameters of the `audio` html tag, plus these properties:
+The `Video` component accepts all the parameters of the `video` html tag, plus these properties:
 
 ```ts
+  // pass in an id that you will use for the same code block in other slides to enable smooth transitions
+  // `autoAnimate` must be passed to the slides to enable this (see the reveal.js documentation for `data-id`)
+  autoAnimateId?: string;
   autoplay?: boolean;
   controls?: boolean;
   lazy?: string; // lazy-loads the audio, using data-src

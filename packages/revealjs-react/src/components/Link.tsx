@@ -9,6 +9,7 @@ export interface LinkProps {
   children: React.ReactNode;
   href?: string;
   slide?: SlideType;
+  autoAnimateId?: string;
 }
 
 function getLinkFromSlide(
@@ -54,7 +55,7 @@ function getLink(
 }
 
 function Link({
-  id,
+  autoAnimateId,
   children,
   fragmentIndex,
   href,
@@ -69,8 +70,7 @@ function Link({
   return (
     <a
       {...getClassNameProps(props)}
-      data-id={id}
-      id={id}
+      data-id={autoAnimateId}
       href={link}
       onClick={onClick}
       data-fragment-index={fragmentIndex}
